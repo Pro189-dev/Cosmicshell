@@ -13,47 +13,62 @@
 </head>
 <body>
 
-  <!-- CRT Scanline Screen Overlay -->
-  <div class="scanlines"></div>
+  
 
-  <!-- 1. RETRO BIOS BOOT SCREEN -->
-  <div id="boot-screen" onclick="skipBoot()">
-    <div id="boot-log">
-      <p class="cyan-text">COSMICSHELL BIOS v1.0.4 (C) 2026 STARDANCE SYSTEMS</p>
-      <p>CPU: QUANTUM-8800 @ 4.20 GHz</p>
-      <p>MEMORY TEST: 640K OK</p>
-      <p class="magenta-text">&gt; INITIALIZING SPACE DATA MODULES...</p>
-      <p id="boot-step-1"></p>
-      <p id="boot-step-2"></p>
-      <p id="boot-step-3"></p>
+  <!-- 1. GRAPHICAL OS BOOT SCREEN -->
+  <div id="boot-screen">
+    <div class="boot-content">
+      <img src="assets/avatar.png" alt="OS Logo" class="boot-logo">
+      <h2 class="boot-title">COSMICSHELL</h2>
+      <div class="loading-bar-container">
+        <div class="loading-bar"></div>
+      </div>
+      <p class="boot-status">Loading system assets...</p>
     </div>
-    <div class="boot-footer">[ CLICK ANYWHERE TO SKIP BOOT ]</div>
   </div>
 
   <!-- 2. LOCK SCREEN OVERLAY -->
   <div id="lock-screen" class="hidden">
-    <div class="lock-header">
-      <span>SYS_STATUS: LOCKED</span>
-      <span>SEC_LEVEL: STARDANCE-1</span>
+    
+    <!-- Top Clock & Date -->
+    <div class="lock-top">
+      <div id="lock-clock">00:00 PM</div>
+      <div id="lock-date">DAY, MONTH 00</div>
     </div>
 
-    <div class="lock-card">
-      <div class="planet-avatar">🪐</div>
-      <h1 class="lock-title">COSMICSHELL</h1>
-      <div id="lock-clock">00:00:00</div>
-      <div id="lock-date">YYYY-MM-DD</div>
-
-      <div class="login-form">
-        <input type="password" id="passcode-input" maxlength="4" value="1337" readonly>
-        <button class="pixel-btn" onclick="unlockSystem()">[ UNLOCK ]</button>
+    <!-- Login Box Panel -->
+    <div class="login-box">
+      <div class="login-left">
+        <img src="assets/avatar.png" alt="User Avatar" class="user-avatar">
+      </div>
+      <div class="login-right">
+        <div class="username">CAPTAIN</div>
+        <div class="status-msg" id="login-status">System Standby</div>
+        <div class="login-buttons">
+          <button id="unlock-btn" class="pixel-btn primary" onclick="triggerUnlock()">[ ENTER SYSTEM ]</button>
+        </div>
       </div>
     </div>
 
-    <div class="blink-prompt" onclick="unlockSystem()">
-      &gt;&gt; PRESS ANY KEY OR CLICK TO INITIALIZE &lt;&lt;
-    </div>
+    <div class="lock-footer">COSMICSHELL v1.0 | Press [ENTER] to Unlock</div>
+  </div> <!-- !!! THIS CLOSING DIV IS CRITICAL. IT CLOSES THE LOCK SCREEN !!! -->
+
+
+  <!-- 3. DESKTOP PLACEHOLDER -->
+  <div id="desktop">
+    <header id="top-bar">
+      <div class="brand">🚀 CosmicShell <span>v1.0</span></div>
+      <div class="status-items">
+        <span class="badge">✨ 50 STARDUST</span>
+        <span id="clock">00:00:00</span>
+      </div>
+    </header>
   </div>
 
+  <!-- Main JavaScript Connection -->
+  <script src="script.js"></script>
+</body>
+</html>
   <!-- 3. DESKTOP PLACEHOLDER -->
   <div id="desktop">
     <header id="top-bar">
