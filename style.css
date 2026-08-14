@@ -7,8 +7,10 @@
   --neon-magenta: #ff007f;
   --star-yellow: #ffee55;
   --pixel-border: 4px solid #000;
-  --font-header: 'Press Start 2P', monospace;
-  --font-body: 'VT323', monospace;
+  
+  /* --- NEW FONTS --- */
+  --font-header: 'Bytesized', monospace;
+  --font-body: 'Audiowide', sans-serif;
 }
 
 * {
@@ -26,7 +28,6 @@ body {
   font-family: var(--font-body);
   color: #fff;
 }
-
 
 .hidden {
   display: none !important;
@@ -65,10 +66,10 @@ body {
 
 .boot-title {
   font-family: var(--font-header);
-  font-size: 16px;
+  font-size: 48px; /* Scaled way up for Bytesized */
   color: #fff;
   margin-bottom: 30px;
-  letter-spacing: 2px;
+  letter-spacing: 4px;
 }
 
 .loading-bar-container {
@@ -84,13 +85,12 @@ body {
   height: 100%;
   background: var(--neon-cyan);
   width: 0%;
-  /* 3.5-second loading animation */
   animation: fillBar 3.5s ease-in-out forwards; 
 }
 
 .boot-status {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 14px; /* Scaled down for Audiowide */
   color: #888;
 }
 
@@ -107,15 +107,15 @@ body {
 }
 
 /* =======================================
-   2. LOCK SCREEN LAYOUT
+   2. LOCK SCREEN & GLITCH ANIMATION
    ======================================= */
 #lock-screen {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
   
-  /* Link to your new mystical background */
-  background-image: url('assets/pixel-art-mystical-background.jpg');
+  /* Link to your .jpg background */
+  background-image: url('assets/wallpaper.jpg');
   background-size: cover;
   background-position: center;
   image-rendering: pixelated;
@@ -126,13 +126,22 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 60px 24px 24px 24px;
-  transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
 }
 
 #lock-screen.unlocked {
-  transform: translateY(-100%);
-  opacity: 0;
+  /* Runs the choppy pixel glitch animation */
+  animation: pixel-glitch 0.6s steps(5) forwards;
   pointer-events: none;
+}
+
+/* The Glitch Keyframes */
+@keyframes pixel-glitch {
+  0% { opacity: 1; transform: translateX(0); filter: hue-rotate(0deg); }
+  20% { opacity: 0.8; transform: translateX(-15px) skewX(5deg); filter: hue-rotate(90deg); }
+  40% { opacity: 0.4; transform: translateX(15px) skewX(-5deg); filter: hue-rotate(0deg); }
+  60% { opacity: 0.9; transform: translateX(-10px); filter: invert(100%); }
+  80% { opacity: 0.2; transform: translateX(10px) skewX(10deg); filter: hue-rotate(0deg); }
+  100% { opacity: 0; transform: translateX(0); }
 }
 
 /* Top Clock */
@@ -143,39 +152,44 @@ body {
 
 #lock-clock {
   font-family: var(--font-header);
-  font-size: 54px;
+  font-size: 96px; /* Massive scale-up for Bytesized */
   color: var(--star-yellow);
   margin-bottom: 16px;
 }
 
 #lock-date {
   font-family: var(--font-header);
-  font-size: 20px;
+  font-size: 32px; /* Scaled up */
   color: #fff;
 }
 
-/* Custom Login Box */
+/* Custom Login Box (Glassy HUD Style) */
 .login-box {
-  background: #2a3b5c;
-  border: 4px solid #6b8cce;
-  border-radius: 8px; 
-  padding: 24px;
+  /* Translucent deep blue with a frosted glass blur */
+  background: rgba(15, 15, 45, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(107, 140, 206, 0.4);
+  border-radius: 12px; 
+  padding: 32px;
   display: flex;
-  gap: 24px;
+  gap: 32px;
   align-items: center;
-  box-shadow: 6px 6px 0px rgba(0,0,0,0.6);
+  /* Soft glowing shadow instead of a hard block shadow */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(107, 140, 206, 0.1);
   margin-bottom: 40px;
 }
 
 .login-left {
-  border-right: 2px dashed #4a5b7c;
-  padding-right: 24px;
+  /* Softened the dividing line */
+  border-right: 2px solid rgba(107, 140, 206, 0.3);
+  padding-right: 32px;
 }
 
 .user-avatar {
   width: 70px;
   image-rendering: pixelated;
-  filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.5));
+  /* Added a soft magical glow to your ghost */
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
 .login-right {
@@ -187,38 +201,18 @@ body {
 
 .username {
   font-family: var(--font-header);
-  font-size: 16px;
+  font-size: 32px;
   color: #fff;
-  text-shadow: 2px 2px #000;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  letter-spacing: 2px;
 }
 
 .status-msg {
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 16px;
   color: #aebce0;
-  margin-bottom: 12px;
-  transition: color 0.3s ease;
-}
-
-/* Button Animation States */
-.pixel-btn.authenticating {
-  background: #ffaa00;
-  color: #000;
-  animation: blink-fast 0.2s infinite;
-  pointer-events: none; /* Prevents double-clicking */
-}
-
-.pixel-btn.granted {
-  background: #00ff00;
-  color: #000;
-  box-shadow: 2px 2px 0 #004400;
-  border-color: #004400;
-  pointer-events: none;
-}
-
-@keyframes blink-fast {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  margin-bottom: 8px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .login-buttons {
@@ -226,68 +220,144 @@ body {
   gap: 12px;
 }
 
+/* Glassy Holographic Button */
 .pixel-btn {
   font-family: var(--font-header);
-  font-size: 10px;
-  padding: 10px 16px;
+  font-size: 20px;
+  padding: 12px 24px;
   cursor: pointer;
-  border: 2px solid #000;
-  box-shadow: 2px 2px 0 #000;
-  color: #fff;
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--neon-cyan);
+  border-radius: 4px;
+  color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+  transition: all 0.2s ease;
+  outline: none;
 }
 
-.pixel-btn.primary { background: #ff8800; }
-.pixel-btn.primary:hover { background: #ffaa44; }
-
-.pixel-btn.secondary { background: #6b8cce; }
-.pixel-btn.secondary:hover { background: #8bacf0; }
+.pixel-btn:hover { 
+  background: rgba(0, 255, 255, 0.25); 
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
 
 .pixel-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 0px 0px 0 #000;
+  transform: scale(0.95);
+}
+
+/* Holographic Animation States */
+.pixel-btn.authenticating {
+  background: rgba(255, 170, 0, 0.15);
+  border-color: #ffaa00;
+  color: #ffaa00;
+  text-shadow: 0 0 5px rgba(255, 170, 0, 0.5);
+  box-shadow: 0 0 15px rgba(255, 170, 0, 0.3);
+  animation: hud-pulse 1s infinite alternate;
+  pointer-events: none;
+}
+
+.pixel-btn.granted {
+  background: rgba(0, 255, 0, 0.2);
+  border-color: #00ff00;
+  color: #00ff00;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  pointer-events: none;
+}
+
+@keyframes hud-pulse {
+  from { opacity: 1; box-shadow: 0 0 5px rgba(255, 170, 0, 0.2); }
+  to { opacity: 0.6; box-shadow: 0 0 20px rgba(255, 170, 0, 0.6); }
 }
 
 .lock-footer {
   font-family: var(--font-header);
-  font-size: 10px;
-  color: #fff;
-  text-shadow: 2px 2px #000;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.5);
+  text-shadow: none;
+  letter-spacing: 1px;
 }
-
 /* =======================================
-   3. DESKTOP PLACEHOLDER STYLES
-   ======================================= */
-#desktop {
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, #0a0a23 0%, #03030c 100%);
-}
-
-#top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--topbar-bg);
-  padding: 8px 16px;
-  border-bottom: var(--pixel-border);
-  box-shadow: 0 4px 0 var(--neon-magenta);
-  font-family: var(--font-header);
-  font-size: 10px;
-}
-
-.brand span { color: var(--neon-cyan); }
-.status-items { display: flex; gap: 16px; align-items: center; }
-.badge { background: var(--neon-magenta); color: #fff; padding: 4px 8px; border: 2px solid #000; }
-
-/* =======================================
-   3. DESKTOP PLACEHOLDER STYLES
+   3. DESKTOP & TASKBAR STYLES
    ======================================= */
 #desktop {
   position: absolute;
-  top: 0; 
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  
+  /* Applies the mystical wallpaper to the desktop */
+  background-image: url('assets/wallpaper.jpg');
+  background-size: cover;
+  background-position: center;
+  image-rendering: pixelated;
+  z-index: 1; 
+}
+
+/* The Glassy Mystical Taskbar */
+#taskbar {
+  position: absolute;
+  bottom: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: radial-gradient(circle at center, #0a0a23 0%, #03030c 100%);
-  z-index: 1; /* Keeps it strictly behind the lock screen (which is z-index 1000) */
+  width: 100%;
+  height: 54px;
+  /* Semi-transparent deep cosmic blue lets the wallpaper bleed through */
+  background: rgba(15, 15, 45, 0.75); 
+  backdrop-filter: blur(4px); /* Softens the wallpaper behind the bar */
+  border-top: 2px solid #6b8cce; /* Soft periwinkle edge */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  box-shadow: 0px -4px 15px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.taskbar-left, .taskbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 100%;
+}
+
+/* Floating Ghost Button (No Bulky Box) */
+.start-btn {
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent; 
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+  outline: none;
+}
+
+.start-btn:hover { 
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px var(--neon-cyan)); /* Adds a mystical cyan glow */
+}
+
+.start-btn:active {
+  transform: scale(0.95); 
+}
+
+.start-icon {
+  width: 38px;
+  image-rendering: pixelated;
+  filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.8));
+}
+
+/* Minimalist Glowing Clock */
+.taskbar-clock {
+  font-family: var(--font-header);
+  font-size: 20px; 
+  color: #e0e7ff; /* Soft starlight white/blue */
+  background: transparent;
+  padding: 8px;
+  border: none;
+  box-shadow: none;
+  /* Sharp drop shadow for readability, soft glow for magic */
+  text-shadow: 2px 2px 0px #000, 0 0 8px rgba(224, 231, 255, 0.4); 
+  letter-spacing: 2px;
 }
