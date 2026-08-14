@@ -5,15 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CosmicShell v1.0</title>
   
-  <!-- Pixel Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Audiowide & Bytesized -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Bytesized&display=swap" rel="stylesheet">
   
   <!-- Main Stylesheet Connection -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  
 
   <!-- 1. GRAPHICAL OS BOOT SCREEN -->
   <div id="boot-screen">
@@ -36,7 +34,7 @@
       <div id="lock-date">DAY, MONTH 00</div>
     </div>
 
-    <!-- Login Box Panel -->
+    <!-- Login Box Panel (Password-Free) -->
     <div class="login-box">
       <div class="login-left">
         <img src="assets/avatar.png" alt="User Avatar" class="user-avatar">
@@ -51,33 +49,32 @@
     </div>
 
     <div class="lock-footer">COSMICSHELL v1.0 | Press [ENTER] to Unlock</div>
-  </div> <!-- !!! THIS CLOSING DIV IS CRITICAL. IT CLOSES THE LOCK SCREEN !!! -->
-
-
-  <!-- 3. DESKTOP PLACEHOLDER -->
-  <div id="desktop">
-    <header id="top-bar">
-      <div class="brand">🚀 CosmicShell <span>v1.0</span></div>
-      <div class="status-items">
-        <span class="badge">✨ 50 STARDUST</span>
-        <span id="clock">00:00:00</span>
-      </div>
-    </header>
   </div>
 
-  <!-- Main JavaScript Connection -->
-  <script src="script.js"></script>
-</body>
-</html>
-  <!-- 3. DESKTOP PLACEHOLDER -->
+
+  <!-- 3. DESKTOP & TASKBAR -->
   <div id="desktop">
-    <header id="top-bar">
-      <div class="brand">🚀 CosmicShell <span>v1.0</span></div>
-      <div class="status-items">
-        <span class="badge">✨ 50 STARDUST</span>
-        <span id="clock">00:00:00</span>
+    
+    <!-- This area will hold your desktop icons later -->
+    <div id="desktop-icons"></div>
+
+    <!-- The Arcade Deck Taskbar -->
+    <footer id="taskbar">
+      <div class="taskbar-left">
+        <!-- Ghost Start Button -->
+        <button class="start-btn">
+          <img src="assets/avatar.png" alt="Start" class="start-icon">
+        </button>
+        <!-- Open apps will appear here later -->
+        <div id="active-apps"></div>
       </div>
-    </header>
+      
+      <div class="taskbar-right">
+        <!-- Sunken System Clock -->
+        <div id="clock" class="taskbar-clock">00:00 PM</div>
+      </div>
+    </footer>
+    
   </div>
 
   <!-- Main JavaScript Connection -->
